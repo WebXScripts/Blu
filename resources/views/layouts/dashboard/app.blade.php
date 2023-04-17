@@ -4,5 +4,3 @@
 @section('body')
     @yield('content')
 @endsection
-
-@include('layouts.dashboard.footer')
