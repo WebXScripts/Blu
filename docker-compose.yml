@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+    fpm-8.2:
+        build: .docker/php
+        container_name: fpm-8.2
+        volumes:
+            - ./:/var/www/html
+            - .docker/.env:/var/www/html/.env
+        ports:
+            - "9000:9000"
+        networks:
+            - blu
+        depends_on:
+            - mariadb
+    nginx:
+        image: nginx:1.21
+        container_name: nginx
+        volumes:
+            - ./:/var/www/html
+            - .docker/nginx/:/etc/nginx/conf.d/
+        ports:
+            - "80:80"
+        networks:
+            - blu
+        depends_on:
+            - fpm-8.2
+    mariadb:
+        image: mariadb:10.3
+        container_name: db
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: blu
+            MYSQL_USER: blu
+            MYSQL_PASSWORD: blu
+        networks:
+            - blu
+    phpmyadmin:
+        image: phpmyadmin
+        container_name: phpmyadmin
+        environment:
+            PMA_HOST: db
+            PMA_USER: blu
+            PMA_PASSWORD: blu
+        ports:
+            - "8080:80"
+        networks:
+            - blu
+        depends_on:
+            - mariadb
+networks:
+    blu:
+        driver: bridge
