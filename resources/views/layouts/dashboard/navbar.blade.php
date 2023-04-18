@@ -22,29 +22,12 @@
                 <a href="#" class="px-2 xl:px-4 py-2 text-gray-200 rounded-md hover:bg-gray-600 duration-150">Accounts</a>
             </li>
         </ul>
-        <ul class="flex space-x-2 xl:space-x-4 text-sm font-semibold">
-            <li>
-                <a href="#">
-                    <div class="p-2 rounded hover:bg-gray-600 text-gray-200 duration-150">
-                        <i class="fa-brands fa-discord"></i>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="p-2 rounded hover:bg-gray-600 text-gray-200 duration-150">
-                        <i class="fa-brands fa-github"></i>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="p-2 rounded hover:bg-gray-600 text-gray-200 duration-150">
-                        <i class="fa fa-bell"></i>
-                    </div>
-                </a>
-            </li>
-        </ul>
+        @if(request()->routeIs('dashboard'))
+            <x-dashboard.navbar.dashboard-items />
+        @endif
+        @if(request()->routeIs('servers'))
+            <x-dashboard.navbar.servers-list-items />
+        @endif
         <ul class="flex items-center gap-6">
             <li>
                 <a href="#" class="text-sm font-sans text-gray-200 font-semibold tracking-wider">
