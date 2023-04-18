@@ -14,11 +14,8 @@
                 <form wire:submit.prevent="handle">
                     <div class="px-4 py-5 bg-gray-50 sm:px-6">
                         <h2 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-                            Creating new Server
+                            Add a server
                         </h2>
-                        <p class="mt-1 text-sm text-gray-500">
-                            Create a new account
-                        </p>
                     </div>
                     <div class="px-4 py-4 sm:p-6">
                         <label for="name" class="block font-medium text-sm text-gray-700">

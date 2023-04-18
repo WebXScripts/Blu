@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ServersController;
 use App\Http\Livewire\LoginForm;
+use App\Http\Livewire\ServersList;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,6 @@ Route::middleware('auth')->group(static function() {
     Route::get('/logout', [DashboardController::class, 'logout'])->name('logout');
 
     Route::prefix('servers')->group(static function() {
-        Route::get('/', ServersController::class)->name('servers');
+        Route::get('/', ServersList::class)->name('servers');
     });
 });
