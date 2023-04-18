@@ -20,12 +20,15 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         @livewireStyles
         @livewireScripts
+        @toastScripts
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
 
     <body>
-        @yield('body')
+    <livewire:toasts />
+
+    @yield('body')
     </body>
 </html>

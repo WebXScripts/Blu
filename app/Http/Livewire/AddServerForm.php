@@ -6,9 +6,13 @@ use App\Actions\ServerResponseAction;
 use App\Models\Website;
 use Livewire\Component;
 use \Illuminate\Contracts\View\View as ViewContract;
+use Usernotnull\Toast\Concerns\WireToast;
+use Usernotnull\Toast\Toast;
 
 class AddServerForm extends Component
 {
+    use WireToast;
+
     public string $name = '';
     public string $url = '';
     public string $description = '';
@@ -32,7 +36,8 @@ class AddServerForm extends Component
         $call = ServerResponseAction::make($this->url);
 
         if (!$call) {
-            $this->addError('url', 'The provided URL is not reachable.');
+            Toast()->danger('Server is not responding. Please check the URL and try again.')
+                ->push();
             return;
         }
 
@@ -50,5 +55,7 @@ class AddServerForm extends Component
 
         $this->reset();
         $this->dispatchBrowserEvent('server-added');
+        Toast()->success('Server added successfully.')
+            ->push();
     }
 }

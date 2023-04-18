@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ServersController;
 use App\Http\Livewire\LoginForm;
 use App\Http\Livewire\ServersList;
 use Illuminate\Support\Facades\Route;
