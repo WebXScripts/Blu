@@ -14,9 +14,4 @@ class ServerCard extends Component
     {
         return view('livewire.server-card');
     }
-
-    public function mount(Website $website): void
-    {
-        $this->website = $website;
-    }
 }

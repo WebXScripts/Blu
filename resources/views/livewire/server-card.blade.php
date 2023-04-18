@@ -1,5 +1,7 @@
 <?php
-    /** @var \App\Models\Website $website */
+    /**
+     * @var \App\Models\Website $website
+     */
 ?>
 <div class="bg-white p-6 rounded-xl border border-gray-50">
     <div class="flex justify-between items-start">
