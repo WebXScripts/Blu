@@ -4,9 +4,12 @@ namespace App\Http\Livewire;
 
 use Illuminate\Contracts\View\View as ViewContract;
 use Livewire\Component;
+use Usernotnull\Toast\Concerns\WireToast;
 
 class LoginForm extends Component
 {
+    use WireToast;
+
     public string $email = '';
     public string $password = '';
 
@@ -19,7 +22,8 @@ class LoginForm extends Component
     {
         $this->validate();
         if (!auth()->attempt(['email' => $this->email, 'password' => $this->password])) {
-            $this->addError('email', 'The provided credentials do not match our records.');
+            Toast()->danger('Invalid credentials. Please try again.')
+                ->push();
             return;
         }
 
