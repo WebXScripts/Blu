@@ -47,6 +47,13 @@ services:
             - blu
         depends_on:
             - mariadb
+    redis:
+        image: redis:6.2
+        container_name: redis
+        ports:
+            -   "6379:6379"
+        networks:
+            - blu
 networks:
     blu:
         driver: bridge

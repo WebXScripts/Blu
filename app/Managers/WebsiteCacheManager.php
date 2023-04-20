@@ -1,0 +1,129 @@
+<?php
+
+namespace App\Managers;
+
+use App\DTO\WebsiteCacheDto;
+use App\Models\Website;
+use Illuminate\Support\Collection;
+use Psr\SimpleCache\InvalidArgumentException;
+
+class WebsiteCacheManager
+{
+    /**
+     * Get a website from cache.
+     * @param int $id
+     * @return Website|null
+     * @throws InvalidArgumentException
+     */
+    public function get(int $id): ?Website
+    {
+        /** @var array $cachedWebsite */
+        $cachedWebsite = \Cache::store('redis')
+            ->get('websites', collect())
+            ->where('id', $id)
+            ->first();
+        return Website::where('id', $cachedWebsite['id'])->first();
+    }
+
+    /**
+     * Get all websites from cache.
+     * @return Collection
+     * @throws InvalidArgumentException
+     */
+    public function getAll(): Collection
+    {
+        return Website::whereIn('id', \Cache::store('redis')
+            ->get('websites', collect())
+            ->pluck('id')
+            ->toArray()
+        )->get();
+    }
+
+    /**
+     * Store a website in cache.
+     * @throws InvalidArgumentException
+     */
+    public function store(Website $website): Collection
+    {
+        /** @var Collection|null $cachedWebsites */
+        $cachedWebsites = \Cache::store('redis')->get('websites');
+
+        if ($cachedWebsites === null) {
+            $this->mountCache();
+            return \Cache::store('redis')->get('websites', collect());
+        }
+
+        $cachedWebsites->push([
+            'id' => $website->id,
+            'url' => $website->url,
+            'interval' => $website->parameters->scan_interval ?? 10,
+            'last_checked_at' => null,
+        ]);
+        \Cache::store('redis')->forever('websites', $cachedWebsites);
+
+        return $cachedWebsites;
+    }
+
+    /**
+     * Update a website in cache.
+     * @throws InvalidArgumentException
+     */
+    public function update(WebsiteCacheDto $dto): Collection
+    {
+        /** @var Collection|null $cachedWebsites */
+        $cachedWebsites = \Cache::store('redis')->get('websites');
+
+        if ($cachedWebsites === null) {
+            $this->mountCache();
+            return \Cache::store('redis')->get('websites', collect());
+        }
+
+        $cachedWebsites->where('id', $dto->id)->transform(static function() use ($dto) {
+            return $dto->toArray();
+        });
+
+        \Cache::store('redis')->forever('websites', $cachedWebsites);
+        return $cachedWebsites;
+    }
+
+    /**
+     * Delete a website from cache.
+     * @throws InvalidArgumentException
+     */
+    public function delete(int $id): Collection
+    {
+        /** @var Collection|null $cachedWebsites */
+        $cachedWebsites = \Cache::store('redis')->get('websites');
+
+        if ($cachedWebsites === null) {
+            $this->mountCache();
+            return \Cache::store('redis')->get('websites', collect());
+        }
+
+        //Todo: add annotation to database that website was deleted (?)
+        $cachedWebsites->pull($id);
+
+        \Cache::store('redis')->forever('websites', $cachedWebsites);
+        return $cachedWebsites;
+    }
+
+    /**
+     * Mount cache when it's empty.
+     */
+    private function mountCache(): void
+    {
+        \Cache::store('redis')->forget('websites');
+        \Cache::store('redis')->rememberForever('websites', static function()
+        {
+            return Website::all()->map(static function (Website $website)
+            {
+                return [
+                    'id' => $website->id,
+                    'url' => $website->url,
+                    'interval' => $website->parameters->scan_interval ?? 10,
+                    'last_checked_at' => null,
+                ];
+            })->collect();
+        });
+    }
+}

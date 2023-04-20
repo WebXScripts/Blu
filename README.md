@@ -53,7 +53,7 @@ docker-compose up -d
 
 Implementing these features is not a priority for me, but I'll be adding them as soon as I can.
 
-- [ ] Add caching
+- [x] Add caching
 - [ ] Add tests
 - [ ] Add a way to add multiple users
 
