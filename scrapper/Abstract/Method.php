@@ -2,6 +2,7 @@
 
 namespace Scrapper\Abstract;
 
+use Scrapper\DTO\Response;
 use Scrapper\Http\Codes;
 
 abstract class Method
@@ -11,5 +12,5 @@ abstract class Method
      * @param string $url
      * @return Codes
      */
-    abstract public function status(string $url): Codes;
+    abstract public function status(string $url): Response;
 }

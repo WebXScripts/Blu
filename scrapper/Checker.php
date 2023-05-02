@@ -3,8 +3,8 @@
 namespace Scrapper;
 
 use Scrapper\Abstract\Method;
+use Scrapper\DTO\Response;
 use Scrapper\Exceptions\MethodNotFoundException;
-use Scrapper\Http\Codes;
 
 final class Checker
 {
@@ -29,9 +29,9 @@ final class Checker
     /**
      * This method is used to check if the server is online or not.
      * @param string $url
-     * @return Codes
+     * @return Response
      */
-    public function check(string $url): Codes
+    public function check(string $url): Response
     {
         return self::$method->status($url);
     }

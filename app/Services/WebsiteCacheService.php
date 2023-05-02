@@ -7,7 +7,7 @@ use App\Models\Website;
 use Illuminate\Support\Collection;
 use Psr\SimpleCache\InvalidArgumentException;
 
-class WebsiteCacheService
+class WebsiteCacheService //todo: make it a repository?
 {
     /**
      * Get a website from cache.
@@ -26,7 +26,7 @@ class WebsiteCacheService
     }
 
     /**
-     * Get all websites from cache.
+     * Get all websites from cache [models].
      * @return Collection
      * @throws InvalidArgumentException
      */
@@ -37,6 +37,20 @@ class WebsiteCacheService
             ->pluck('id')
             ->toArray()
         )->get();
+    }
+
+    /**
+     * Get all cached websites.
+     * @return Collection
+     * @throws InvalidArgumentException
+     */
+    public function getAllCached(): Collection
+    {
+        if(!\Cache::store('redis')->get('websites')) {
+            $this->mountCache();
+        }
+
+        return \Cache::store('redis')->get('websites');
     }
 
     /**

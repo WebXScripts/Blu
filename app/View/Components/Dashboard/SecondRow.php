@@ -8,12 +8,14 @@ use Illuminate\View\Component;
 
 class SecondRow extends Component
 {
+    public int $averageUpTime;
+
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(int $averageUpTime)
     {
-        //
+        $this->averageUpTime = $averageUpTime;
     }
 
     /**
@@ -21,6 +23,8 @@ class SecondRow extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.dashboard.second-row');
+        return view('components.dashboard.second-row', [
+            'averageUpTime' => $this->averageUpTime
+        ]);
     }
 }

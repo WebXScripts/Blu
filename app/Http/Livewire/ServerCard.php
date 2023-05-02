@@ -15,6 +15,7 @@ class ServerCard extends Component
     {
         return match (ServerResponseMatchAction::make($this->website)) {
             0 => view('livewire.server-cards.not-scanned'),
+            1 => view('livewire.server-cards.cannot-scan'),
             200 => view('livewire.server-cards.online'),
             400 => view('livewire.server-cards.offline'),
         };
