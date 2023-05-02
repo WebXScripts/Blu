@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Managers;
+namespace App\Services;
 
-use App\DTO\WebsiteCacheDto;
+use App\DTO\Website\WebsiteCache;
 use App\Models\Website;
 use Illuminate\Support\Collection;
 use Psr\SimpleCache\InvalidArgumentException;
 
-class WebsiteCacheManager
+class WebsiteCacheService
 {
     /**
      * Get a website from cache.
@@ -68,7 +68,7 @@ class WebsiteCacheManager
      * Update a website in cache.
      * @throws InvalidArgumentException
      */
-    public function update(WebsiteCacheDto $dto): Collection
+    public function update(WebsiteCache $websiteCache): Collection
     {
         /** @var Collection|null $cachedWebsites */
         $cachedWebsites = \Cache::store('redis')->get('websites');
@@ -78,8 +78,8 @@ class WebsiteCacheManager
             return \Cache::store('redis')->get('websites', collect());
         }
 
-        $cachedWebsites->where('id', $dto->id)->transform(static function() use ($dto) {
-            return $dto->toArray();
+        $cachedWebsites->where('id', $websiteCache->id)->transform(static function() use ($websiteCache) {
+            return $websiteCache->toArray();
         });
 
         \Cache::store('redis')->forever('websites', $cachedWebsites);

@@ -3,7 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Actions\ServerResponseAction;
+use App\DTO\Website\WebsiteStore;
 use App\Models\Website;
+use App\Repositories\WebsiteRepository;
 use Livewire\Component;
 use \Illuminate\Contracts\View\View as ViewContract;
 use Usernotnull\Toast\Concerns\WireToast;
@@ -13,10 +15,17 @@ class AddServerForm extends Component
 {
     use WireToast;
 
+    public function __construct( WebsiteRepository $websiteRepository, $id = null)
+    {
+        parent::__construct($id);
+        $this->websiteRepository = $websiteRepository;
+    }
+
+    private WebsiteRepository $websiteRepository;
+
     public string $name = '';
     public string $url = '';
     public string $description = '';
-    public int $scanInterval = 1;
 
     protected $rules = [
         'name' => ['required', 'string', 'max:255'],
@@ -41,17 +50,14 @@ class AddServerForm extends Component
             return;
         }
 
-        /** @var Website $server */
-        $server = auth()->user()->websites()->create([
-            'name' => $this->name,
-            'url' => $this->url,
-            'description' => $this->description,
-            'uuid' => \Str::uuid(),
-        ]);
-
-        $server->parameters()->create([
-            'scan_interval' => $this->scanInterval,
-        ]);
+        $this->websiteRepository->store(
+            new WebsiteStore(
+                name: $this->name,
+                url: $this->url,
+                description: $this->description,
+                uuid: \Str::uuid(),
+            )
+        );
 
         $this->reset();
         $this->dispatchBrowserEvent('server-added');
