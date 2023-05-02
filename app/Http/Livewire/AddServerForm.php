@@ -4,24 +4,15 @@ namespace App\Http\Livewire;
 
 use App\Actions\ServerResponseAction;
 use App\DTO\Website\WebsiteStore;
-use App\Models\Website;
+use App\Repositories\Interfaces\WebsiteRepositoryInterface;
 use App\Repositories\WebsiteRepository;
 use Livewire\Component;
 use \Illuminate\Contracts\View\View as ViewContract;
 use Usernotnull\Toast\Concerns\WireToast;
-use Usernotnull\Toast\Toast;
 
 class AddServerForm extends Component
 {
     use WireToast;
-
-    public function __construct( WebsiteRepository $websiteRepository, $id = null)
-    {
-        parent::__construct($id);
-        $this->websiteRepository = $websiteRepository;
-    }
-
-    private WebsiteRepository $websiteRepository;
 
     public string $name = '';
     public string $url = '';
@@ -31,7 +22,6 @@ class AddServerForm extends Component
         'name' => ['required', 'string', 'max:255'],
         'url' => ['required', 'string', 'max:255'],
         'description' => ['nullable', 'string', 'max:255'],
-        'scanInterval' => ['nullable', 'integer', 'min:1'],
     ];
 
     public function render(): ViewContract
@@ -50,7 +40,7 @@ class AddServerForm extends Component
             return;
         }
 
-        $this->websiteRepository->store(
+        app(WebsiteRepository::class)->store(
             new WebsiteStore(
                 name: $this->name,
                 url: $this->url,
