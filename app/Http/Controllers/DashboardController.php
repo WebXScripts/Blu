@@ -17,8 +17,7 @@ class DashboardController extends Controller
 
     public function __invoke(): ViewContract
     {
-        return view('dashboard.index',
-        [
+        return view('dashboard.index', [
             'averageUpTime' => $this->statisticsService->calculateAverageUpTimePercent()
         ]);
     }

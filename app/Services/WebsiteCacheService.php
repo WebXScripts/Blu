@@ -12,31 +12,16 @@ class WebsiteCacheService //todo: make it a repository?
     /**
      * Get a website from cache.
      * @param int $id
-     * @return Website|null
+     * @return array|null
      * @throws InvalidArgumentException
      */
-    public function get(int $id): ?Website
+    public function get(int $id): ?array
     {
         /** @var array $cachedWebsite */
-        $cachedWebsite = \Cache::store('redis')
+        return \Cache::store('redis')
             ->get('websites', collect())
             ->where('id', $id)
             ->first();
-        return Website::where('id', $cachedWebsite['id'])->first();
-    }
-
-    /**
-     * Get all websites from cache [models].
-     * @return Collection
-     * @throws InvalidArgumentException
-     */
-    public function getAll(): Collection
-    {
-        return Website::whereIn('id', \Cache::store('redis')
-            ->get('websites', collect())
-            ->pluck('id')
-            ->toArray()
-        )->get();
     }
 
     /**
@@ -73,8 +58,8 @@ class WebsiteCacheService //todo: make it a repository?
             'interval' => $website->parameters->scan_interval ?? 10,
             'last_checked_at' => null,
         ]);
-        \Cache::store('redis')->forever('websites', $cachedWebsites);
 
+        \Cache::store('redis')->forever('websites', $cachedWebsites);
         return $cachedWebsites;
     }
 

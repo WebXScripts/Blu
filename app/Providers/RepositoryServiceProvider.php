@@ -15,5 +15,9 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Interfaces\WebsiteRepositoryInterface::class,
             \App\Repositories\WebsiteRepository::class
         );
+        $this->app->bind(
+            \App\Repositories\Interfaces\ScanHistoryInterface::class,
+            \App\Repositories\ScanHistoryRepository::class
+        );
     }
 }
