@@ -71,7 +71,7 @@ If you want to contribute to this project, you can do it in two ways:
 
 ## License
 
-Blu is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Blu is open-sourced software licensed under the [Apache License 2.0](https://github.com/WebXScripts/Blu/blob/1.0/LICENSE).
 
 ## Support
 
