@@ -19,7 +19,7 @@
         <div class="flex justify-between items-start">
             <div class="flex flex-col">
                 <p class="text-xs text-gray-600 tracking-wide">Uptime</p>
-                <h3 class="mt-1 text-lg text-green-500 font-bold">{{ $averageUpTime }}</h3>
+                <h3 class="mt-1 text-lg text-green-500 font-bold">{{ $averageUpTime }}%</h3>
                 <span class="mt-4 text-xs text-gray-500">In this month</span>
             </div>
             <div class="bg-green-500 p-2 md:p-1 xl:p-2 rounded-md">

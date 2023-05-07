@@ -9,17 +9,27 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ScanHistoryRepository implements ScanHistoryInterface
 {
-    public static function getAll(int $website): Collection
+    public function getAll(): Collection
+    {
+        return ScanHistory::all();
+    }
+
+    public function getAllForWebsite(int $website): Collection
     {
         return ScanHistory::where('website_id', $website)
             ->get();
     }
 
-    public static function getLatest(int $website): ?ScanHistory
+    public function getLatestForWebsite(int $website): ?ScanHistory
     {
         return ScanHistory::where('website_id', $website)
             ->latest()
             ->first();
+    }
+
+    public function getLatest(): ?ScanHistory
+    {
+        return ScanHistory::latest()->first();
     }
 
     public function store(ScanHistoryStore $store): ScanHistory

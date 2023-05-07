@@ -2,35 +2,26 @@
 
 namespace App\Services;
 
-use App\Models\Website;
-use App\Repositories\Interfaces\WebsiteRepositoryInterface;
+use App\Repositories\Interfaces\ScanHistoryInterface;
+use Scrapper\Http\Codes;
 
 class StatisticsService
 {
-    private WebsiteRepositoryInterface $websiteRepository;
+    private ScanHistoryInterface $scanHistoryRepository;
 
-    public function __construct(WebsiteRepositoryInterface $websiteRepository)
+    public function __construct(ScanHistoryInterface $scanHistoryRepository)
     {
-        $this->websiteRepository = $websiteRepository;
+        $this->scanHistoryRepository = $scanHistoryRepository;
     }
 
     public function calculateAverageUpTimePercent(): float
     {
-        $websites = $this->websiteRepository->getAll();
-        if ($websites->count() > 0) {
-            return 100 - $websites->sum(static function (Website $website) {
-                    if ($website->scanHistories->where('status_code', '!=', 1)->count() > 0) {
-                        (float)($website->scanHistories
-                                ->where('status_code', 1)
-                                ->where('status_code', '=<', 400)
-                                ->count() / $website->scanHistories->count());
-                        return $website->scanHistories->where('status_code', '!=', 1)
-                                ->count() / $website->scanHistories->count();
-                    }
-                    return 0;
-                });
-        }
-        return 0;
+        $all = $this->scanHistoryRepository->getAll();
+        return ($all
+                ->where('created_at', '>=', now()->subDays(30))
+                ->where('status_code', Codes::ONLINE->value)
+                ->count() /
+            $all->where('created_at', '>=', now()->subDays(30))
+                ->count()) * 100;
     }
-
 }

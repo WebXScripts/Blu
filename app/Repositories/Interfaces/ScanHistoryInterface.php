@@ -9,9 +9,13 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface ScanHistoryInterface
 {
-    public static function getAll(int $website): Collection;
+    public function getAll(): Collection;
 
-    public static function getLatest(int $website): ?ScanHistory;
+    public function getAllForWebsite(int $website): Collection;
+
+    public function getLatestForWebsite(int $website): ?ScanHistory;
+
+    public function getLatest(): ?ScanHistory;
 
     public function store(ScanHistoryStore $store): ScanHistory;
 
