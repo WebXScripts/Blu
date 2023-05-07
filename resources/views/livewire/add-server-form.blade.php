@@ -21,20 +21,46 @@
                         <label for="name" class="block font-medium text-sm text-gray-700">
                             Name
                         </label>
-                        <input wire:model.lazy="name" type="text" name="name" id="name" class="form-input rounded-md shadow-sm mt-1 block w-full" placeholder="Laravel">
-                        @error('name') <x-error-message :message="$message"/> @enderror
+                        <input wire:model.lazy="name" type="text" name="name" id="name" class="form-input rounded-md shadow-sm mt-1 block w-full @error('name') border-red-500 @enderror" placeholder="Laravel">
+                        @error('name')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
 
                         <label for="url" class="block font-medium text-sm text-gray-700 mt-4">
                             URL
                         </label>
-                        <input wire:model.lazy="url"  type="url" name="url" id="url" class="form-input rounded-md shadow-sm mt-1 block w-full" placeholder="laravel.io">
-                        @error('url') <x-error-message :message="$message"/> @enderror
+                        <input wire:model.lazy="url"  type="url" name="url" id="url" class="form-input rounded-md shadow-sm mt-1 block w-full @error('url') border-red-500 @enderror" placeholder="laravel.io">
+                        @error('url')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
 
                         <label for="description" class="block font-medium text-sm text-gray-700 mt-4">
                             Description
                         </label>
-                        <input wire:model.lazy="description"  type="text" name="description" id="description" class="form-input rounded-md shadow-sm mt-1 block w-full" placeholder="Please stay online!">
-                        @error('description') <x-error-message :message="$message"/> @enderror
+                        <input wire:model.lazy="description"  type="text" name="description" id="description" class="form-input rounded-md shadow-sm mt-1 block w-full @error('description') border-red-500 @enderror" placeholder="Please stay online!">
+                        @error('description')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+
+                        <div class="flex items-center justify-center w-full mt-4">
+                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer @error('image') border-red-500 @enderror">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Server thumbnail image</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                </div>
+                                <input wire:model="image" id="dropzone-file" type="file" class="hidden" />
+                            </label>
+                        </div>
+
+                        @error('image')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+
+                        @if($image)
+                            <div class="flex justify-center mt-4 h">
+                                <img alt="uploaded file" src="{{ $image->temporaryUrl() }}" class="w-16 h-16 object-cover rounded-lg"/>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">

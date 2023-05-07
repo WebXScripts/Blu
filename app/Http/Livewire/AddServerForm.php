@@ -5,22 +5,26 @@ namespace App\Http\Livewire;
 use App\Actions\ServerResponseAction;
 use App\DTO\Website\WebsiteStore;
 use App\Repositories\WebsiteRepository;
+use Illuminate\Http\UploadedFile;
 use Livewire\Component;
 use \Illuminate\Contracts\View\View as ViewContract;
+use Livewire\WithFileUploads;
 use Usernotnull\Toast\Concerns\WireToast;
 
 class AddServerForm extends Component
 {
-    use WireToast;
+    use WireToast, WithFileUploads;
 
     public string $name = '';
     public string $url = '';
     public string $description = '';
+    public $image;
 
     protected $rules = [
         'name' => ['required', 'string', 'max:255'],
         'url' => ['required', 'string', 'max:255'],
         'description' => ['nullable', 'string', 'max:255'],
+        'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg'],
     ];
 
     public function render(): ViewContract
@@ -45,6 +49,7 @@ class AddServerForm extends Component
                 url: $this->url,
                 description: $this->description,
                 uuid: \Str::uuid(),
+                image: $this->image,
             )
         );
 

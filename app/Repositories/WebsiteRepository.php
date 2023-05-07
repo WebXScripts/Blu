@@ -34,6 +34,15 @@ class WebsiteRepository implements WebsiteRepositoryInterface
             'user_id' => auth()->id(),
         ]);
 
+        if($store->image) {
+            try {
+                $website->addMedia($store->image)
+                    ->toMediaCollection('website_thumbnail');
+            } catch (\Exception $e) {
+                logger()->error($e->getMessage());
+            }
+        }
+
         $website->parameters()->create([
             'scan_interval' => 10, //todo; make this configurable
         ]);

@@ -15,6 +15,7 @@
         "livewire/livewire": "^2.12",
         "predis/predis": "^2.1",
         "spatie/laravel-data": "^3.4",
+        "spatie/laravel-medialibrary": "^10.0.0",
         "usernotnull/tall-toasts": "^1.7"
     },
     "require-dev": {

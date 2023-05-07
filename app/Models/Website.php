@@ -5,9 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Website extends Model
+class Website extends Model implements HasMedia
 {
+    use InteractsWithMedia;
+
     protected $fillable = [
         'name',
         'url',
@@ -29,5 +33,11 @@ class Website extends Model
     public function token(): HasOne
     {
         return $this->hasOne(WebsiteToken::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('thumbnail')
+            ->singleFile();
     }
 }
