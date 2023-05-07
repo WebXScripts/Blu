@@ -11,7 +11,7 @@ I'm working on this project in my free time, so it's not ready for production ye
 - PHP >= 8.2
 - Composer
 - MySQL/MariaDB or whatever database you want to use that is supported by Laravel
-- Redis (probably, I want to add caching, but it's not implemented yet)
+- Redis
 - A web server (Apache, Nginx, etc.)
 
 ## Installation
