@@ -8,12 +8,9 @@ use Illuminate\Http\RedirectResponse;
 
 class DashboardController extends Controller
 {
-    private StatisticsService $statisticsService;
-
-    public function __construct(StatisticsService $statisticsService)
-    {
-        $this->statisticsService = $statisticsService;
-    }
+    public function __construct(
+        private readonly StatisticsService $statisticsService
+    ) {}
 
     public function __invoke(): ViewContract
     {

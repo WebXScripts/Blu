@@ -20,20 +20,11 @@ class CheckWebsitesJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private WebsiteCacheService $websiteCacheService;
-    private ScanHistoryInterface $scanHistoryRepository;
-    private Checker $checker;
-
     public function __construct(
-        WebsiteCacheService $websiteCacheService,
-        ScanHistoryInterface $scanHistoryRepository,
-        Checker $checker
-    )
-    {
-        $this->websiteCacheService = $websiteCacheService;
-        $this->scanHistoryRepository = $scanHistoryRepository;
-        $this->checker = $checker;
-    }
+        private readonly WebsiteCacheService $websiteCacheService,
+        private readonly ScanHistoryInterface $scanHistoryRepository,
+        private readonly Checker $checker
+    ) {}
 
     /**
      * Execute the job.

@@ -4,37 +4,48 @@ namespace App\Repositories;
 
 use App\DTO\ScanHistory\ScanHistoryStore;
 use App\Models\ScanHistory;
+use App\Query\Implements\ScanHistoryQuery;
 use App\Repositories\Interfaces\ScanHistoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class ScanHistoryRepository implements ScanHistoryInterface
+readonly class ScanHistoryRepository implements ScanHistoryInterface
 {
+    public function __construct(
+        private ScanHistoryQuery $query,
+        private ScanHistory $model
+    ) {}
+
     public function getAll(): Collection
     {
-        return ScanHistory::all();
+        return $this->model
+            ->all();
     }
 
     public function getAllForWebsite(int $website): Collection
     {
-        return ScanHistory::where('website_id', $website)
+        return $this->query
+            ->byWebsiteId($website)
             ->get();
     }
 
     public function getLatestForWebsite(int $website): ?ScanHistory
     {
-        return ScanHistory::where('website_id', $website)
+        return $this->query
+            ->byWebsiteId($website)
             ->latest()
             ->first();
     }
 
     public function getLatest(): ?ScanHistory
     {
-        return ScanHistory::latest()->first();
+        return $this->query
+            ->latest()
+            ->first();
     }
 
     public function store(ScanHistoryStore $store): ScanHistory
     {
-        return ScanHistory::create(
+        return $this->model->create(
             $store->toArray()
         );
     }
