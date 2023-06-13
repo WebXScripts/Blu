@@ -8,9 +8,11 @@ use Scrapper\Exceptions\MethodNotFoundException;
 use Scrapper\Exceptions\ScrapperException;
 use Scrapper\Http\Http;
 
-final class Checker
+final readonly class Checker
 {
-    private Method $method;
+    public function __construct(
+        private Method $method
+    ) {}
 
     /**
      * This method is used to set the method to check the server status.
@@ -26,11 +28,6 @@ final class Checker
         }
 
         throw new ScrapperException();
-    }
-
-    public function __construct(Method $method)
-    {
-        $this->method = $method;
     }
 
     /**
