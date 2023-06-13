@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('scan_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('website_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('website_id')->constrained()->cascadeOnDelete();
             $table->integer('status_code');
             $table->integer('response_time');
             $table->timestamps();

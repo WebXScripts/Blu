@@ -5,25 +5,32 @@ namespace Scrapper;
 use Scrapper\Abstract\Method;
 use Scrapper\DTO\Response;
 use Scrapper\Exceptions\MethodNotFoundException;
+use Scrapper\Exceptions\ScrapperException;
+use Scrapper\Http\Http;
 
 final class Checker
 {
-    private static Method $method;
+    private Method $method;
 
     /**
      * This method is used to set the method to check the server status.
      * @param string $method
-     * @return Checker|null
+     * @return Checker
      * @throws MethodNotFoundException
+     * @throws ScrapperException
      */
-    public static function setMethod(string $method): ?self
+    public static function setMethod(string $method = Http::class): self
     {
         if(self::methodExists($method)) {
-            self::$method = new $method();
-            return new self();
+            return new self(new $method());
         }
 
-        return null;
+        throw new ScrapperException();
+    }
+
+    public function __construct(Method $method)
+    {
+        $this->method = $method;
     }
 
     /**
@@ -33,7 +40,7 @@ final class Checker
      */
     public function check(string $url): Response
     {
-        return self::$method->status($url);
+        return $this->method->status($url);
     }
 
     /**

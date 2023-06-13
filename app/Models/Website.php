@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -10,14 +11,13 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Website extends Model implements HasMedia
 {
-    use InteractsWithMedia;
+    use InteractsWithMedia, HasUuids;
 
     protected $fillable = [
         'name',
         'url',
         'description',
         'user_id',
-        'uuid',
     ];
 
     public function parameters(): HasOne

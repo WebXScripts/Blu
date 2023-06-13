@@ -2,7 +2,10 @@
 
 namespace App\Console;
 
+use App\DTO\ScanHistory\ScanHistoryStore;
 use App\Jobs\CheckWebsitesJob;
+use App\Repositories\ScanHistoryRepository;
+use App\Services\WebsiteCacheService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -14,18 +17,14 @@ class Kernel extends ConsoleKernel
 {
     /**
      * Define the application's command schedule.
-     * @throws BindingResolutionException
-     * @throws MethodNotFoundException
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->job(
-            new CheckWebsitesJob(
-                app()->make(\App\Services\WebsiteCacheService::class),
-                app()->make(\App\Repositories\Interfaces\ScanHistoryInterface::class),
-                Checker::setMethod(config('checker.method', Http::class))
-            )
-        )->everyThreeMinutes();
+        $schedule
+            ->job(new CheckWebsitesJob(
+                websiteCacheService: new WebsiteCacheService(),
+                checker: Checker::setMethod(config('checker.method'))
+            ))->everyMinute();
     }
 
     /**

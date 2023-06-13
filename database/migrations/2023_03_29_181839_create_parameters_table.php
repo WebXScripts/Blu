@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('parameters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('website_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('website_id')->constrained()->cascadeOnDelete();
             $table->integer('scan_interval')->default(60);
             $table->timestamps();
         });

@@ -8,7 +8,6 @@ use App\Repositories\Interfaces\ScanHistoryInterface;
 use App\Services\WebsiteCacheService;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -22,7 +21,6 @@ class CheckWebsitesJob implements ShouldQueue
 
     public function __construct(
         private readonly WebsiteCacheService $websiteCacheService,
-        private readonly ScanHistoryInterface $scanHistoryRepository,
         private readonly Checker $checker
     ) {}
 
@@ -30,9 +28,9 @@ class CheckWebsitesJob implements ShouldQueue
      * Execute the job.
      * @throws InvalidArgumentException
      */
-    public function handle(): void
+    public function handle(ScanHistoryInterface $repository): void
     {
-        $this->websiteCacheService->getAllCached()->each(function (array &$website) {
+        $this->websiteCacheService->getAllCached()->each(function (array &$website) use ($repository) {
             if($website['last_checked_at'] === null
                 || Carbon::parse($website['last_checked_at'])->addMinutes($website['interval'])->isPast()
             ) {
@@ -46,7 +44,7 @@ class CheckWebsitesJob implements ShouldQueue
                     )
                 );
 
-                $this->scanHistoryRepository->store(
+                $repository->store(
                     new ScanHistoryStore(
                         website_id: $website['id'],
                         status_code: $check->status_code->value,

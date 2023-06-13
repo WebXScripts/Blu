@@ -12,4 +12,15 @@ return [
     */
 
     'method' => \Scrapper\Http\Http::class,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default queue
+    |--------------------------------------------------------------------------
+    |
+    | This option controls the default queue that will be used to check.
+    |
+     */
+
+    'queue' => 'default',
 ];
