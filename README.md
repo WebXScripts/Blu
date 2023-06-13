@@ -1,6 +1,8 @@
-# Blu
 
-<p align="center" style="padding-top: 30px">
+<br />
+<br />
+
+<p align="center">
 <img src="https://i.imgur.com/hMiaXVR.png" width="800" alt="blu" title="blu" />
 </p>
 
