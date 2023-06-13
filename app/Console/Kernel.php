@@ -11,6 +11,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Scrapper\Checker;
 use Scrapper\Exceptions\MethodNotFoundException;
+use Scrapper\Exceptions\ScrapperException;
 use Scrapper\Http\Http;
 
 class Kernel extends ConsoleKernel
@@ -24,7 +25,11 @@ class Kernel extends ConsoleKernel
             ->job(new CheckWebsitesJob(
                 websiteCacheService: new WebsiteCacheService(),
                 checker: Checker::setMethod(config('checker.method'))
-            ))->everyMinute();
+            ))
+            ->everyMinute()
+            ->onFailure(static function(CheckWebsitesJob $job, \Throwable $e) {
+                logger()->error("Scheduler failed to start: {$e->getMessage()}");
+            });
     }
 
     /**
