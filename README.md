@@ -1,6 +1,6 @@
 ## About Blu
 
-Blu is a Laravel instances monitor. It allows you to monitor your Laravel instances and get notified when something goes wrong.
+Blu is a ~~Laravel instances~~ **Websites** monitor *(but I target laravel instances the most)*. It allows you to monitor your Websites and get notified when something goes wrong.
 
 I'm working on this project in my free time, so it's not ready for production yet. I'll be adding more features and fixing bugs as soon as I can.
 
