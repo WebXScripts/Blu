@@ -1,10 +1,3 @@
-
-<br />
-
-<p align="center">
-<img src="https://i.imgur.com/hMiaXVR.png" width="800" alt="blu" title="blu" />
-</p>
-
 ## About Blu
 
 Blu is a Laravel instances monitor. It allows you to monitor your Laravel instances and get notified when something goes wrong.
