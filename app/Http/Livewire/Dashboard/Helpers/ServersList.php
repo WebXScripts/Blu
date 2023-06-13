@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Dashboard\Helpers;
 
 use App\Models\Website;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
-use \Illuminate\Contracts\View\View as ViewContract;
 
 class ServersList extends Component
 {
@@ -14,7 +14,7 @@ class ServersList extends Component
 
     public function render(): ViewContract
     {
-        return view('livewire.servers-list')
+        return view('livewire.dashboard.helpers.servers-list')
             ->extends('layouts.dashboard.app')
             ->section('content');
     }

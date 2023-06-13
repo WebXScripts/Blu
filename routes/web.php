@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Livewire\LoginForm;
-use App\Http\Livewire\ServersList;
+use App\Http\Livewire\Dashboard\Helpers\ServersList;
+use App\Http\Livewire\Dashboard\Servers\LookUp;
+use App\Http\Livewire\Forms\LoginForm;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,5 +27,8 @@ Route::middleware('auth')->group(static function() {
 
     Route::prefix('servers')->group(static function() {
         Route::get('/', ServersList::class)->name('servers');
+        Route::prefix('lookup')->group(static function() {
+            Route::get('/{website}', LookUp::class)->name('servers.lookup');
+        });
     });
 });

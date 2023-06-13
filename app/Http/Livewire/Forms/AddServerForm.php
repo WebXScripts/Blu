@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Forms;
 
 use App\Actions\ServerResponseAction;
 use App\DTO\Website\WebsiteStore;
 use App\Repositories\WebsiteRepository;
-use Illuminate\Http\UploadedFile;
+use Illuminate\Contracts\View\View as ViewContract;
 use Livewire\Component;
-use \Illuminate\Contracts\View\View as ViewContract;
 use Livewire\WithFileUploads;
 use Usernotnull\Toast\Concerns\WireToast;
 
@@ -29,7 +28,7 @@ class AddServerForm extends Component
 
     public function render(): ViewContract
     {
-        return view('livewire.add-server-form');
+        return view('livewire.forms.add-server-form');
     }
 
     public function handle(): void

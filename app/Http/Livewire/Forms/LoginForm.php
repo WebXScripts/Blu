@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Forms;
 
 use Illuminate\Contracts\View\View as ViewContract;
 use Livewire\Component;
@@ -32,7 +32,7 @@ class LoginForm extends Component
 
     public function render(): ViewContract
     {
-        return view('livewire.login-form')
+        return view('livewire.forms.login-form')
             ->extends('layouts.app')
             ->section('content');
     }

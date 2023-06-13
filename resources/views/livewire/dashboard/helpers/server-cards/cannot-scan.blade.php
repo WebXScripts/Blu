@@ -3,7 +3,7 @@
  * @var \App\Models\Website $website
  */
 ?>
-<div class="bg-white p-6 rounded-xl border border-gray-50" wire:poll.5s>
+<div class="bg-white p-6 rounded-xl border border-gray-50" wire:poll.5s wire:click="lookUp">
     <div class="flex justify-between items-start">
         <div class="flex flex-col">
             <p class="text-xs text-gray-600 tracking-wide">{{ $website->name }}</p>

@@ -28,6 +28,9 @@
         @if(request()->routeIs('servers'))
             <x-dashboard.navbar.servers-list-items />
         @endif
+        @if(request()->routeIs('servers.lookup'))
+            <x-dashboard.navbar.look-up-items />
+        @endif
         <ul class="flex items-center gap-6">
             <li>
                 <a href="#" class="text-sm font-sans text-gray-200 font-semibold tracking-wider">

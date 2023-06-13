@@ -7,7 +7,7 @@
             <h2 class="text-xs md:text-sm text-gray-200 font-bold tracking-wide md:tracking-wider">Servers</h2>
         </div>
         @foreach($servers as $server)
-            <livewire:server-card :website="$server" wire:key="server-{{ $server->id }}" />
+            <livewire:dashboard.helpers.server-card :website="$server" wire:key="server-{{ $server->id }}" />
         @endforeach
     </div>
 </main>
