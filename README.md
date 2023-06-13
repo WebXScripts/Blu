@@ -1,4 +1,6 @@
-![Blu](https://socialify.git.ci/WebXScripts/Blu/image?description=1&descriptionEditable=Laravel%20instances%20monitor.&font=Raleway&forks=1&language=1&name=1&owner=1&stargazers=1&theme=Auto)
+<p align="center">
+<img src="https://i.imgur.com/hMiaXVR.png" width="400" alt="viddy" title="viddy" />
+</p>
 
 ## About Blu
 
