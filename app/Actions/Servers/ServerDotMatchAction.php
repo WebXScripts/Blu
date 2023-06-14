@@ -6,7 +6,7 @@ class ServerDotMatchAction
 {
     const NOT_SCANNED = 'bg-white';
     const CANNOT_SCAN = 'bg-yellow-500';
-    const ONLINE = 'bg-green-500';
+    const ONLINE = 'bg-green-500 animate-pulse';
     const OFFLINE = 'bg-red-500';
 
     public static function handle(?int $status): string
