@@ -2,6 +2,7 @@
 
 namespace App\Query;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -20,5 +21,10 @@ abstract class BaseQuery extends Builder
     public function first($columns = ['*'])
     {
         return $this->query->first($columns);
+    }
+
+    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null): LengthAwarePaginator
+    {
+        return $this->query->paginate($perPage, $columns, $pageName, $page);
     }
 }

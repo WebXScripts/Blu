@@ -28,6 +28,52 @@ class LookUp extends Component
         return (new ServerDotMatchAction)->handle($this->website
             ->scanHistories
             ->last()
-            ->status_code);
+            ->status_code
+        );
+    }
+
+    public function getLastCheckedStatus(): string
+    {
+        if ($this->website
+                ->scanHistories
+                ->last()
+                ?->status_code ?? 0 == 200) {
+            return 'Alive.';
+        }
+
+        return 'Issue detected.';
+    }
+
+    public function getLastCheckedDate(): string
+    {
+        return $this->website
+            ->scanHistories
+            ->last()
+            ?->created_at
+            ?->diffForHumans() ?? 'Never.';
+    }
+
+    public function getLastCheckedResponseTime(): string
+    {
+        return $this->website
+            ->scanHistories
+            ->last()
+            ?->response_time ?? 'NaN';
+    }
+
+    public function getPositiveStatusCount(): int
+    {
+        return $this->website
+            ->scanHistories
+            ->where('status_code', 200)
+            ->count();
+    }
+
+    public function getNegativeStatusCount(): int
+    {
+        return $this->website
+            ->scanHistories
+            ->where('status_code', '!=', 200)
+            ->count();
     }
 }
