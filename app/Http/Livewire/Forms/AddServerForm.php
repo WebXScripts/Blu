@@ -2,7 +2,8 @@
 
 namespace App\Http\Livewire\Forms;
 
-use App\Actions\ServerResponseAction;
+use App\Actions\Forms\AddServerAction;
+use App\Actions\Servers\ServerResponseAction;
 use App\DTO\Website\WebsiteStore;
 use App\Repositories\WebsiteRepository;
 use Illuminate\Contracts\View\View as ViewContract;
@@ -31,18 +32,16 @@ class AddServerForm extends Component
         return view('livewire.forms.add-server-form');
     }
 
-    public function handle(): void
+    public function handle(ServerResponseAction $responseAction, AddServerAction $addServerAction): void
     {
         $this->validate();
-        $call = ServerResponseAction::make($this->url);
-
-        if (!$call) {
+        if (!$responseAction->handle($this->url)) {
             Toast()->danger('Server is not responding. Please check the URL and try again.')
                 ->push();
             return;
         }
 
-        app(WebsiteRepository::class)->store(
+        $addServerAction->handle(
             new WebsiteStore(
                 name: $this->name,
                 url: $this->url,

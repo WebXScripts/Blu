@@ -2,17 +2,13 @@
 
 namespace App\Actions\KickStart;
 
-use App\Interfaces\IAction;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class CreateAdminAction implements IAction
+class CreateAdminAction
 {
-    public static function make(...$data): bool
+    public static function handle(string $email, string $password): bool
     {
-        $email = $data[0] ?? null;
-        $password = $data[1] ?? null;
-
         if (!$email
             || !$password
             || User::where('email', $email)->exists()

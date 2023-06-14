@@ -3,7 +3,7 @@
         <div class="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500">
             <div class="backdrop-brightness-50 rounded-xl h-48">
                 <div class="flex justify-end px-4 pt-4">
-                    <span class="flex w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                    <span class="flex w-3 h-3 rounded-full animate-pulse {{ $this->generateStatusDot() }}" wire:poll.10s></span>
                 </div>
                 <div class="flex flex-col h-3/4 items-center justify-center">
                     <p class="text-white text-5xl font-bold tracking-wide">{{ $website->name }}</p>
@@ -16,7 +16,7 @@
              style="background-image: url('{{ $website->getThumbnailUrl() }}')">
             <div class="backdrop-brightness-50 rounded-xl h-48">
                 <div class="flex justify-end px-4 pt-4">
-                    <span class="flex w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                    <span class="flex w-3 h-3 rounded-full animate-pulse {{ $this->generateStatusDot() }}" wire:poll.10s></span>
                 </div>
                 <div class="flex flex-col h-3/4 items-center justify-center">
                     <p class="text-white text-5xl font-bold tracking-wide">{{ $website->name }}</p>

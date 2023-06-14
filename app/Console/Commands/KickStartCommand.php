@@ -24,7 +24,7 @@ class KickStartCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle(): int
+    public function handle(CreateAdminAction $action): int
     {
         if(\Cache::get('app:kick-started')) {
             $this->error('Application already kick started.');
@@ -40,7 +40,7 @@ class KickStartCommand extends Command
         $this->info("Enter the admin's password:");
         $password = $this->secret('Password');
 
-        if(!CreateAdminAction::make($email, $password)) {
+        if(!$action->handle($email, $password)) {
             $this->error("Admin user creation failed.");
             return -2;
         }

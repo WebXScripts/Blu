@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard\Servers;
 
+use App\Actions\Servers\ServerDotMatchAction;
 use App\Models\Website;
 use Livewire\Component;
 use Illuminate\Contracts\View\View as ViewContract;
@@ -20,5 +21,13 @@ class LookUp extends Component
         return view('livewire.dashboard.servers.lookup')
             ->extends('layouts.dashboard.app')
             ->section('content');
+    }
+
+    public function generateStatusDot(): string
+    {
+        return (new ServerDotMatchAction)->handle($this->website
+            ->scanHistories
+            ->last()
+            ->status_code);
     }
 }

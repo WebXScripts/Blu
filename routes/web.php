@@ -27,7 +27,7 @@ Route::middleware('auth')->group(static function() {
 
     Route::prefix('servers')->group(static function() {
         Route::get('/', ServersList::class)->name('servers');
-        Route::prefix('lookup')->group(static function() {
+        Route::prefix('look-up')->group(static function() {
             Route::get('/{website}', LookUp::class)->name('servers.lookup');
         });
     });
