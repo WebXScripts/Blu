@@ -40,4 +40,14 @@ class Website extends Model implements HasMedia
         $this->addMediaCollection('thumbnail')
             ->singleFile();
     }
+
+    public function hasThumbnail(): bool
+    {
+        return $this->getFirstMedia('thumbnail') !== null;
+    }
+
+    public function getThumbnailUrl(): string
+    {
+        return $this->getFirstMediaUrl('thumbnail');
+    }
 }

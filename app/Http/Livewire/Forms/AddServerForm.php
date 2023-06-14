@@ -47,7 +47,6 @@ class AddServerForm extends Component
                 name: $this->name,
                 url: $this->url,
                 description: $this->description,
-                uuid: \Str::uuid(),
                 image: $this->image,
             )
         );

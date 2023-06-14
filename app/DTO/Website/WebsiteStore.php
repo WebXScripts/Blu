@@ -11,7 +11,6 @@ class WebsiteStore extends Data
         public readonly string $name,
         public readonly string $url,
         public readonly string $description,
-        public readonly string $uuid,
         public readonly ?UploadedFile $image,
     ) {}
 }

@@ -41,14 +41,13 @@ readonly class WebsiteRepository implements WebsiteRepositoryInterface
             'name' => $store->name,
             'url' => $store->url,
             'description' => $store->description,
-            'uuid' => $store->uuid,
             'user_id' => auth()->id(),
         ]);
 
         if($store->image) {
             try {
                 $website->addMedia($store->image)
-                    ->toMediaCollection('website_thumbnail');
+                    ->toMediaCollection('thumbnail');
             } catch (\Exception $e) {
                 logger()->error($e->getMessage());
             }
