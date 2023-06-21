@@ -30,7 +30,7 @@ class CheckWebsitesJob implements ShouldQueue
      */
     public function handle(ScanHistoryInterface $repository): void
     {
-        $this->websiteCacheService->getAllCached()->each(function (array &$website) use ($repository) {
+        $this->websiteCacheService->getAllCached()->each(function(array $website) use ($repository) {
             if($website['last_checked_at'] === null
                 || Carbon::parse($website['last_checked_at'])->addMinutes($website['interval'])->isPast()
             ) {
