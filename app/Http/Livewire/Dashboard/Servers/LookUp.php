@@ -28,7 +28,7 @@ class LookUp extends Component
         return (new ServerDotMatchAction)->handle($this->website
             ->scanHistories
             ->last()
-            ->status_code
+            ?->status_code
         );
     }
 
@@ -37,7 +37,7 @@ class LookUp extends Component
         if ($this->website
                 ->scanHistories
                 ->last()
-                ?->status_code ?? 0 == 200) {
+                ?->status_code ?? 0 === 200) {
             return 'Alive.';
         }
 
