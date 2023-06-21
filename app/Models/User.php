@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\User\PasswordHashCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -56,7 +57,7 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'password' => PasswordHashCast::class,
     ];
 
     public function websites(): HasMany

@@ -3,7 +3,6 @@
 namespace App\Actions\KickStart;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class CreateAdminAction
 {
@@ -20,7 +19,7 @@ class CreateAdminAction
         $user = User::create([
             'name' => 'Admin',
             'email' => $email,
-            'password' => Hash::make($password),
+            'password' => $password,
         ]);
 
         return $user->exists;

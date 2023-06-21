@@ -7,7 +7,7 @@
                 </div>
                 <div class="flex flex-col h-3/4 items-center justify-center">
                     <p class="text-white text-5xl font-bold tracking-wide">{{ $website->name }}</p>
-                    <span class="text-white mt-4 text-lg text-gray-500 md:hidden">{{ $website->description }}</span>
+                    <span class="mt-4 text-lg text-gray-500 md:hidden">{{ $website->description }}</span>
                 </div>
             </div>
         </div>
@@ -75,16 +75,21 @@
                 <div class="flex flex-col justify-center items-center h-full">
                     <div
                         class="flex justify-center items-center bg-gray-100 rounded-full w-24 h-24 mb-4">
-                        <i class="fa fa-robot text-gray-500 text-4xl"></i>
+                        <i class="fa fa-earth text-gray-500 text-4xl"></i>
                     </div>
                     <div class="flex flex-col justify-center items-center">
-                        <p class="text-xl text-gray-600 tracking-wide">Lyra</p>
-                        <h3 class="mt-1 text-xs text-gray-500 font-bold">Lyra is not connected.</h3>
+                        <p class="text-xl text-gray-600 tracking-wide">Vela</p>
+                        <h3 class="mt-1 text-xs text-gray-500 font-bold">Connect laravel instance to Vela.</h3>
                         <div class="flex flex-col justify-center items-center mt-4">
                             <button
                                 class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl duration-150">
                                 Connect
                             </button>
+                        </div>
+                        <div class="flex flex-col justify-start mt-5">
+                            <div class="text-xs text-gray-500">
+                                <a href="#" target="_blank" class="text-blue-500 hover:text-blue-600 duration-150">Learn more</a>
+                            </div>
                         </div>
                     </div>
                 </div>
