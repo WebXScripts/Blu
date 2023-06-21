@@ -34,10 +34,10 @@ class KickStartCommand extends Command
         $this->info('Kick starting the application...');
         $this->info("Creating admin user...");
 
-        $this->info("Enter the admin's email:");
+        $this->info("Enter the admin email:");
         $email = $this->ask('Email');
 
-        $this->info("Enter the admin's password:");
+        $this->info("Enter the admin password:");
         $password = $this->secret('Password');
 
         if(!$action->handle($email, $password)) {
