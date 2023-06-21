@@ -5,7 +5,7 @@ services:
         container_name: fpm-8.2
         volumes:
             - ./:/var/www/html
-            - .docker/.env:/var/www/html/.env
+            - .docker/.env.docker:/var/www/html/.env
         ports:
             - "9000:9000"
         networks:
