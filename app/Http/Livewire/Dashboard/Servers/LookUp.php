@@ -58,7 +58,7 @@ class LookUp extends Component
         return $this->website
             ->scanHistories
             ->last()
-            ?->response_time ?? 'NaN';
+            ?->response_time ?? '0';
     }
 
     public function getPositiveStatusCount(): int
@@ -75,5 +75,15 @@ class LookUp extends Component
             ->scanHistories
             ->where('status_code', '!=', 200)
             ->count();
+    }
+
+    public function getNextScanDate(): string
+    {
+        return $this->website
+            ->scanHistories
+            ->last()
+            ?->created_at
+            ?->addSeconds($this->website->parameters->scan_interval)
+            ?->diffForHumans() ?? 'Waiting...';
     }
 }

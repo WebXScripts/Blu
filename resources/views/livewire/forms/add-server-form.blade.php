@@ -5,7 +5,7 @@
         </div>
     </a>
 
-    <div class="fixed z-10 inset-0 overflow-y-auto" x-show="showPopup" x-cloak>
+    <div class="fixed z-10 inset-0 overflow-y-auto" x-show="showPopup" x-cloak x-on:keydown.escape.window="showPopup = false">
         <div class="flex items-center justify-center min-h-screen px-4">
             <div class="fixed inset-0 transition-opacity duration-150" aria-hidden="true" @click="showPopup = false">
                 <div class="absolute inset-0 bg-gray-800 opacity-75"></div>
@@ -29,7 +29,7 @@
                         <label for="url" class="block font-medium text-sm text-gray-700 mt-4">
                             URL
                         </label>
-                        <input wire:model.lazy="url"  type="url" name="url" id="url" class="form-input rounded-md shadow-sm mt-1 block w-full @error('url') border-red-500 @enderror" placeholder="laravel.io">
+                        <input wire:model.lazy="url" type="url" name="url" id="url" class="form-input rounded-md shadow-sm mt-1 block w-full @error('url') border-red-500 @enderror" placeholder="laravel.io">
                         @error('url')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
@@ -37,7 +37,25 @@
                         <label for="description" class="block font-medium text-sm text-gray-700 mt-4">
                             Description
                         </label>
-                        <input wire:model.lazy="description"  type="text" name="description" id="description" class="form-input rounded-md shadow-sm mt-1 block w-full @error('description') border-red-500 @enderror" placeholder="Please stay online!">
+
+                        <input wire:model.lazy="description" type="text" name="description" id="description" class="form-input rounded-md shadow-sm mt-1 block w-full @error('description') border-red-500 @enderror" placeholder="Please stay online!">
+
+                        <label for="description" class="block font-medium text-sm text-gray-700 mt-4">
+                            Interval
+                        </label>
+
+                        <div class="flex">
+                            <input wire:model.lazy="interval" type="number" name="interval" id="interval" class="form-input rounded-l-md border-r shadow-sm mt-1 block w-full @error('interval') border-red-500 @enderror" placeholder="5">
+                            <select wire:model.lazy="interval_unit" name="interval_unit" id="interval_unit" class="form-select rounded-r-md border-l-0 shadow-sm mt-1 block w-full @error('interval_unit') border-red-500 @enderror">
+                                <option value="minutes">Minutes</option>
+                                <option value="hours">Hours</option>
+                                <option value="days">Days</option>
+                                <option value="weeks">Weeks</option>
+                                <option value="months">Months</option>
+                                <option value="years">Years</option>
+                            </select>
+                        </div>
+
                         @error('description')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror

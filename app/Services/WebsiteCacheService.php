@@ -55,7 +55,7 @@ class WebsiteCacheService
         $cachedWebsites->push([
             'id' => $website->id,
             'url' => $website->url,
-            'interval' => $website->parameters->scan_interval ?? 10,
+            'interval' => $website->parameters->scan_interval,
             'last_checked_at' => null,
         ]);
 

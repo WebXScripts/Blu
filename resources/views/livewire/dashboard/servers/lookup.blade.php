@@ -43,6 +43,7 @@
                             <div class="text-xs text-gray-500">Status: {{ $this->getLastCheckedStatus() }}</div>
                             <div class="text-xs text-gray-500">Time: {{ $this->getLastCheckedResponseTime() }}ms</div>
                             <div class="text-xs text-gray-500">Last checked: {{ $this->getLastCheckedDate() }}</div>
+                            <div class="text-xs text-gray-500">Next scan: {{ $this->getNextScanDate() }}</div>
                         </div>
                         <div class="flex flex-col justify-start mt-5">
                             <div class="text-xs text-gray-500">

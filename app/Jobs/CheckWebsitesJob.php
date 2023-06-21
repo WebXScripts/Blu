@@ -32,7 +32,7 @@ class CheckWebsitesJob implements ShouldQueue
     {
         $this->websiteCacheService->getAllCached()->each(function(array $website) use ($repository) {
             if($website['last_checked_at'] === null
-                || Carbon::parse($website['last_checked_at'])->addMinutes($website['interval'])->isPast()
+                || Carbon::parse($website['last_checked_at'])->addSeconds($website['interval'])->isPast()
             ) {
                 $check = $this->checker->check($website['url']);
                 $this->websiteCacheService->update(

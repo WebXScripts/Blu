@@ -53,10 +53,6 @@ readonly class WebsiteRepository implements WebsiteRepositoryInterface
             }
         }
 
-        $website->parameters()->create([
-            'scan_interval' => 10, //todo; make this configurable
-        ]);
-
         return $website;
     }
 }
