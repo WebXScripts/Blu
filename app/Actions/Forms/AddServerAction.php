@@ -3,7 +3,6 @@
 namespace App\Actions\Forms;
 
 use App\DTO\Website\WebsiteStore;
-use App\Jobs\FirstTimeScanJob;
 use App\Repositories\Interfaces\WebsiteRepositoryInterface;
 use App\Services\WebsiteCacheService;
 
@@ -21,6 +20,5 @@ readonly class AddServerAction
             'scan_interval' => $store->intervalUnit->convertToSeconds($store->interval)
         ]);
         $this->cacheService->store($website);
-        FirstTimeScanJob::dispatch($website);
     }
 }
